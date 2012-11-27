@@ -1,0 +1,13 @@
+# -*- mode: makefile -*-
+
+disk/all: disk/disk.img
+
+disk/clean:
+	rm -rf disk/disk.img disk/bare.bin
+
+disk/disk.img: boot/boot.bin disk/bare.bin 
+	cp disk/bare.bin $@
+	dd if=$< of=$@ bs=440 count=1 conv=notrunc
+
+disk/bare.bin: disk/src/bare.asm
+	$(AS) -f bin $^ -o $@

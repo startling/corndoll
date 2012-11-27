@@ -1,0 +1,16 @@
+# -*- mode: makefile -*-
+BOOT_OBJ=boot/main.o
+
+boot/all: boot/boot.bin
+
+boot/clean:
+	rm -rf $(BOOT_OBJ) boot/boot.bin
+
+boot/padded.bin: boot/boot.bin
+	dd if=$^ of=$@ obs=0x01db
+
+boot/boot.bin: $(BOOT_OBJ)
+	$(LD) -T boot/link.ld $^ -o $@
+
+boot/%.o: boot/src/%.asm
+	$(AS) $(ASFLAGS) $^ -o $@

@@ -14,3 +14,6 @@ boot/boot.bin: $(BOOT_OBJ)
 
 boot/%.o: boot/src/%.asm
 	$(AS) $(ASFLAGS) $^ -o $@
+
+boot/%.o: boot/src/%.c
+	$(CC) $(CFLAGS) $^ -o $@

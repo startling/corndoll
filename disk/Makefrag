@@ -1,6 +1,10 @@
 # -*- mode: makefile -*-
+DISK_QEMU=qemu-system-i386
 
 disk/all: disk/disk.img
+
+disk/qemu: disk/disk.img
+	$(DISK_QEMU) -hda $<
 
 disk/clean:
 	rm -rf disk/disk.img disk/bare.bin

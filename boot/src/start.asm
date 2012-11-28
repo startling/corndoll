@@ -4,6 +4,9 @@
 ;;; copying it doesn't overwrite the partition table or boot signature.
 ;;; This isn't enforced anyway, so keep an eye out.
 ;;; ==================================================================
+;;; The contents of this file are the very first things to be run, and
+;;; so they run in real (= 16-bit) mode.
+;;; ==================================================================
 bits 16
 ;;; ==================================================================
 ;;; The program code of the bootloader follows:

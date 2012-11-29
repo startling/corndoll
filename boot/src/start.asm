@@ -53,18 +53,15 @@ halt:
 ;;; ==================================================================
         section .data
 ;;; ==================================================================
+        %include "boot/src/gdt.asm"
 gdtPtr:
 ;;; ==================================================================
-;;; A description of the descriptor table, giving its base address and
-;;; its limit address. Inspired by JamesM's gdt_ptr_struct:
-;;; http://www.jamesmolloy.co.uk/tutorial_html
-        dw 0x00                 ; Limit
-        dd 0x00                 ; Base
-        
+;;; A description of the descriptor table: four entries at gdtEntries.
+        gdtDescriptor 4, gdtEntries
 ;;; ==================================================================
-gdtEntry:                       ; TODO
+gdtEntries:
 ;;; ==================================================================
-;;; A descriptor table entry describing a segment with offset 0 and
-;;; limit 2^32 (~ .5GB) operating in the third (weakest) ring.
-        nop
+;;; Four descriptor table entries, as seen on the OSDev wiki
+;;; http://wiki.osdev.org/GDT_Tutorial#Flat_Setup
+        gdtEntry 0, 0, 0, 0     ; The null descriptor.
 ;;; ==================================================================

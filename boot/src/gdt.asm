@@ -3,13 +3,13 @@
 ;;; sourced from the following page of the OSDev wiki:
 ;;; http://wiki.osdev.org/Global_Descriptor_Table
 ;;; ==================================================================
-%define gdtSize 8
+%define gdtEntrySize 8
 ;;; ==================================================================
 %macro gdtDescriptor 2
 ;;; ==================================================================
 ;;; Create a gdt descriptor, given the number of entries and the
 ;;; linear address to the gdt's location.
-        dw (%1 * gdtSize - 1)
+        dw (%1 * gdtEntrySize - 1)
         dd %2
 %endmacro
 ;;; ==================================================================

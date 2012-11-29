@@ -13,6 +13,29 @@
         dd %2
 %endmacro
 ;;; ==================================================================
+%define gdtAccess(rw, dc, ex, pr) \
+;;; ==================================================================
+;;; A macro for creating the "access" bitfield for gdt entries.
+        ;; The access bit; should start out at 0.
+        0
+        ;; Whether this is segment is readable as a code segment or
+        ;; writable as a data segment. No code segments can be written
+        ;; to; all data segments can be read from.
+        | rw << 1 \
+        ;; The direction for this segment as a data segment (0 is up,
+        ;; 1 is down, you probably want 1) or the "conforming" bit for
+        ;; this segment as a code segment (whether it can be executed
+        ;; by lower-privileged code).
+        | dc << 2 \
+        ;; Whether this code can be executed (1 for executable).
+        | ex << 3 \
+        ;; Just a 1.
+        | 01 << 4 \
+        ;; The two-bit representation of the segment's privilege ring.
+        | pr << 5 \
+        ;; The "present" bit -- must be 1.
+        | 01 << 7
+;;; ==================================================================
 %macro gdtEntry 3-5 1, 1
 ;;; ==================================================================
 ;;; Create a descriptor table entry, given its limit, base, access

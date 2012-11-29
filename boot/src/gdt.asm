@@ -1,5 +1,7 @@
 ;;; ==================================================================
-;;; Some nice macros for GDT entries and descriptors.
+;;; Some nice macros for GDT entries and descriptors. Most of this is
+;;; sourced from the following page of the OSDev wiki:
+;;; http://wiki.osdev.org/Global_Descriptor_Table
 ;;; ==================================================================
 %define gdtSize 8
 ;;; ==================================================================
@@ -11,7 +13,7 @@
         dd %2
 %endmacro
 ;;; ==================================================================
-%macro gdtEntry 3
+%macro gdtEntry 4
 ;;; ==================================================================
 ;;; Create a descriptor table entry, given its limit, base, access
 ;;; flags, and granularity bit.

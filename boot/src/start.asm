@@ -36,9 +36,10 @@ start:
 ;;; only differ in their ring levels. For now we'll only have segments
 ;;; for ring levels 0 and 3.
         ;; TODO:
-        ;; Copy the header of the gdt somewhere.
         ;; Copy the base entry afterwards; set its privilege ring to 0
         ;; Copy the base entry again, but don't touch its privileges.
+        ;; Make sure all the segment selectors are zeroed.
+        ;; Initialize the gdt with lgdt gdtPtr
 ;;; ==================================================================
 ;;; Finally, we can re-enable interrupts.
         sti
@@ -52,11 +53,14 @@ halt:
 ;;; ==================================================================
         section .data
 ;;; ==================================================================
-gdtHeader:                      ; TODO
+gdtPtr:
 ;;; ==================================================================
-;;; The header of the descriptor table, giving its base address and
-;;; its limit address.
-        nop
+;;; A description of the descriptor table, giving its base address and
+;;; its limit address. Inspired by JamesM's gdt_ptr_struct:
+;;; http://www.jamesmolloy.co.uk/tutorial_html
+        dw 0x00                 ; Limit
+        dd 0x00                 ; Base
+        
 ;;; ==================================================================
 gdtEntry:                       ; TODO
 ;;; ==================================================================

@@ -18,6 +18,11 @@ start:
 ;;; Disable interrupts temporarily and begin to initialize things.
         cli
         xor ax, ax              ; Zero out AX.
+        ;; And zero out the segment registers, via AX.
+        mov ds, ax
+        mov es, ax
+        mov fs, ax
+        mov gs, ax
         cld                     ; Clear the direction flag.
 ;;; ==================================================================
 ;;; Quick introduction to my understanding of real mode segmented
@@ -32,14 +37,13 @@ start:
         mov ss, ax              ; Zero out SS and set SP such that
         mov sp, 0x7c00          ; SS * 16 + SP == 0x7c00.
 ;;; ==================================================================
-;;; Now we set up the Global Descriptor Table, with flat segments that
-;;; only differ in their ring levels. For now we'll only have segments
-;;; for ring levels 0 and 3.
-        ;; TODO:
-        ;; Copy the base entry afterwards; set its privilege ring to 0
-        ;; Copy the base entry again, but don't touch its privileges.
-        ;; Make sure all the segment selectors are zeroed.
-        ;; Initialize the gdt with lgdt gdtPtr
+ ;;; Now we set up the Global Descriptor Table, below.
+        lgdt [gdtPtr]
+;;; ==================================================================
+;;; And set the low bit of CR0 to 1, going into protected mode.
+        mov eax, cr0
+        or al, 0x1
+        mov cr0, eax
 ;;; ==================================================================
 ;;; Finally, we can re-enable interrupts.
         sti

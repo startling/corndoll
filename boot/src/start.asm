@@ -34,10 +34,11 @@ start:
         or al, 0x1
         mov cr0, eax
 ;;; ==================================================================
-;;; DS and SS should both be in the data (= 0x02) segment.
+;;; DS, SS, and ES should all be in the data (= 0x02) segment.
         mov ax, (0x02 << 3)
         mov ds, ax
         mov ss, ax
+        mov es, ax
 ;;; ==================================================================
 ;;; And CS gets changed to the code (= 0x01) segment with this jump.
         jmp (0x01 << 3):protected

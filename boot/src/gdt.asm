@@ -21,8 +21,9 @@
         dw (%2 & 0xffff)        ; and the low word of the base.
         db ((%2 >> 16) & 0xff)  ; Then the middle byte of the base...
         db %3                   ; and the access byte.
-        ;; The high four bits of the limit and the granularity bit.
-        db (((%1 >> 16) & 0xf) | (%4 & 0xf0))
+        ;; The high four bits of the limit and the granularity bit,
+        ;; as well as 1 (= 32bit) for the size bit.
+        db (((%1 >> 16) & 0xf) | (%4 << 7) | (1 << 6))
         ;; And finally the highest byte of the base.
         db ((%2 >> 24) & 0xff)
 %endmacro

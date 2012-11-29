@@ -13,17 +13,17 @@
         dd %2
 %endmacro
 ;;; ==================================================================
-%macro gdtEntry 4
+%macro gdtEntry 3-5 1, 1
 ;;; ==================================================================
 ;;; Create a descriptor table entry, given its limit, base, access
-;;; flags, and granularity bit.
+;;; flags, and, optionally, its size bit and granularity bit.
         dw (%1 & 0xffff)        ; The low word of the limit...
         dw (%2 & 0xffff)        ; and the low word of the base.
         db ((%2 >> 16) & 0xff)  ; Then the middle byte of the base...
         db %3                   ; and the access byte.
         ;; The high four bits of the limit and the granularity bit,
         ;; as well as 1 (= 32bit) for the size bit.
-        db (((%1 >> 16) & 0xf) | (%4 << 7) | (1 << 6))
+        db (((%1 >> 16) & 0xf) | (%5 << 7) | (%4 << 6))
         ;; And finally the highest byte of the base.
         db ((%2 >> 24) & 0xff)
 %endmacro

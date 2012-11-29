@@ -22,7 +22,7 @@ start:
 ;;; ==================================================================
 ;;; Set up VGA mode 0x03 (Color, 80x25). See
 ;;; http://www.ctyme.com/intr/rb-0069.htm
-        mov al, 0x03            ; AH should still be 0.
+        mov al, 0x03 
         mov ah, 0x00
         int 0x10                ; SET VIDEO MODE
 ;;; ==================================================================

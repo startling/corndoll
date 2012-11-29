@@ -18,17 +18,12 @@ start:
 ;;; ==================================================================
 ;;; Disable interrupts temporarily and begin to initialize things.
         cli
-        xor ax, ax              ; Zero out AX.
-        ;; And zero out the segment registers, via AX.
-        mov ds, ax
-        mov es, ax
-        mov fs, ax
-        mov gs, ax
         cld                     ; Clear the direction flag.
 ;;; ==================================================================
 ;;; Set up VGA mode 0x03 (Color, 80x25). See
 ;;; http://www.ctyme.com/intr/rb-0069.htm
         mov al, 0x03            ; AH should still be 0.
+        mov ah, 0x00
         int 0x10                ; SET VIDEO MODE
 ;;; ==================================================================
 ;;; Now we set up the Global Descriptor Table, below.
@@ -39,9 +34,13 @@ start:
         or al, 0x1
         mov cr0, eax
 ;;; ==================================================================
-;;; Finally, we can re-enable interrupts and then continue.
-        sti
-        jmp protected
+;;; DS and SS should both be in the data (= 0x02) segment.
+        mov ax, (0x02 << 3)
+        mov ds, ax
+        mov ss, ax
+;;; ==================================================================
+;;; And CS gets changed to the code (= 0x01) segment with this jump.
+        jmp (0x01 << 3):protected
 ;;; ==================================================================
         section .data
 ;;; ==================================================================

@@ -65,7 +65,7 @@ gdtPtr:
 ;;; ==================================================================
 gdtEntries:
 ;;; ==================================================================
-;;; Four descriptor table entries, as seen on the OSDev wiki
+;;; Three descriptor table entries, as seen on the OSDev wiki
 ;;; http://wiki.osdev.org/GDT_Tutorial#Flat_Setup
         ;; The null segment descriptor.
         gdtEntry 0, 0, 0

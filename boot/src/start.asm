@@ -26,7 +26,12 @@ start:
         mov gs, ax
         cld                     ; Clear the direction flag.
 ;;; ==================================================================
- ;;; Now we set up the Global Descriptor Table, below.
+;;; Set up VGA mode 0x03 (Color, 80x25). See
+;;; http://www.ctyme.com/intr/rb-0069.htm
+        mov al, 0x03            ; AH should still be 0.
+        int 0x10                ; SET VIDEO MODE
+;;; ==================================================================
+;;; Now we set up the Global Descriptor Table, below.
         lgdt [gdtPtr]
 ;;; ==================================================================
 ;;; And set the low bit of CR0 to 1, going into protected mode.

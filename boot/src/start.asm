@@ -57,11 +57,17 @@ halt:
 gdtPtr:
 ;;; ==================================================================
 ;;; A description of the descriptor table: four entries at gdtEntries.
-        gdtDescriptor 4, gdtEntries
+        gdtDescriptor 3, gdtEntries
 ;;; ==================================================================
 gdtEntries:
 ;;; ==================================================================
 ;;; Four descriptor table entries, as seen on the OSDev wiki
 ;;; http://wiki.osdev.org/GDT_Tutorial#Flat_Setup
-        gdtEntry 0, 0, 0, 0     ; The null descriptor.
+        ;; The null segment descriptor.
+        gdtEntry 0, 0, 0
+        ;; A kernel-space code segment.
+        gdtEntry 0xffffffff, 0, gdtAccess(0, 0, 1, 0)
+        ;; A kernel-space data segment.
+        gdtEntry 0xffffffff, 0, gdtAccess(1, 1, 0, 0)
+        ;; TODO: tss descriptor
 ;;; ==================================================================

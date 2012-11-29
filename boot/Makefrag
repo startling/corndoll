@@ -1,5 +1,5 @@
 # -*- mode: makefile -*-
-BOOT_OBJ=boot/start.o
+BOOT_OBJ=boot/start.o boot/protected.o
 
 boot/all: boot/boot.bin
 

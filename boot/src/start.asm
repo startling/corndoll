@@ -8,6 +8,7 @@
 ;;; so they run in real (= 16-bit) mode.
 ;;; ==================================================================
 bits 16
+extern protected
 ;;; ==================================================================
 ;;; The program code of the bootloader follows:
         section .text
@@ -45,15 +46,9 @@ start:
         or al, 0x1
         mov cr0, eax
 ;;; ==================================================================
-;;; Finally, we can re-enable interrupts.
+;;; Finally, we can re-enable interrupts and then continue.
         sti
-;;; ==================================================================
-halt:
-;;; ==================================================================
-;;; Halt forever -- shut off interrupts and then hlt.
-        cli
-        hlt
-
+        jmp protected
 ;;; ==================================================================
         section .data
 ;;; ==================================================================

@@ -14,8 +14,6 @@ protected:
         mov esp, 0x7c00
 ;;; ==================================================================
         push 12
-;;; Pushing anything breaks right now. Examine the gdt macros to make
-;;; sure we're configuring everything correctly.
 halt:
 ;;; ==================================================================
 ;;; Halt forever -- shut off interrupts and then hlt.

@@ -60,6 +60,6 @@ gdtEntries:
         ;; A kernel-space code segment.
         gdtEntry 0xffffffff, 0, gdtAccess(0, 0, 1, 0)
         ;; A kernel-space data segment.
-        gdtEntry 0xffffffff, 0, gdtAccess(1, 1, 0, 0)
+        gdtEntry 0xffffffff, 0, gdtAccess(1, 0, 0, 0)
         ;; TODO: tss descriptor
 ;;; ==================================================================

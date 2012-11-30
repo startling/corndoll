@@ -13,4 +13,4 @@ boot/%.o: boot/src/%.asm
 	$(AS) $(ASFLAGS) $^ -o $@
 
 boot/%.o: boot/src/%.c
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) -c $(CFLAGS) $^ -o $@

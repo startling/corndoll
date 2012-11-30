@@ -1,6 +1,6 @@
 typedef struct {
-    char attr;
     char character;
+    char attr;
 }__attribute__((packed)) vga_pair;
 
 #define vga_start ((volatile vga_pair *) 0xb8000)

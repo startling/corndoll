@@ -1,0 +1,17 @@
+Here's how I installed bochs on OS X, 2015/11/11:
+
+#+BEGIN_SRC
+wget 'http://iweb.dl.sourceforge.net/project/bochs/bochs/2.6.8/bochs-2.6.8.tar.gz'
+open bochs-2.6.8.tar.gz
+cd bochs-2.6.8
+./configure --with-sdl --with-term --enable-gdb-stub --enable-disasm \
+            --enable-x86-64 --enable-a20-pin --enable-fpu --enable-readline
+make
+make install
+#+END_SRC
+
+I tried installing homebrew/x11/bochs, but I don't think I want the
+x11 version over sdl? I got "PANIC - Cannot connect to X display",
+despite having x11 installed, anyway.
+
+Still cribbed some stuff from [[https://github.com/Homebrew/homebrew-x11/blob/master/bochs.rb][the homebrew recipe]].
